@@ -38,7 +38,7 @@
       "title": "FindYourPain",
       "description": "A UIU tentative exam routine finder tool that helps students locate and visualize their exam schedules with conflict warnings.",
       "category": "Web",
-      "tags": ["JSON", "HTML", "CSS", "JavaScript"],
+      "tags": ["JSON", "HTML", "CSS", "JavaScript", "DOM"],
       "url": "https://yildirim28.github.io/FindYourPain/"
     }
   ]
