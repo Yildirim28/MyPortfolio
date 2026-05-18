@@ -32,6 +32,14 @@
       "description": "A data visualization dashboard that transforms complex datasets into actionable insights.",
       "category": "Data",
       "tags": ["Python", "D3.js", "API"]
+    },
+    {
+      "id": 4,
+      "title": "FindYourPain",
+      "description": "A UIU tentative exam routine finder tool that helps students locate and visualize their exam schedules with conflict warnings.",
+      "category": "Web",
+      "tags": ["HTML", "CSS", "JavaScript"],
+      "url": "https://yildirim28.github.io/FindYourPain/"
     }
   ]
 }

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -272,17 +273,35 @@
             display: flex;
             gap: 1.5rem;
             margin-top: 2rem;
+            align-items: center;
         }
 
         .social-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.2s;
+            font-size: 1.5rem;
+            transition: color 0.2s, transform 0.2s;
         }
 
         .social-links a:hover {
             color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.25rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .project-link:hover {
+            color: var(--accent-hover);
         }
 
         footer {
@@ -415,13 +434,15 @@
             <h2 class="section-title">Get in Touch</h2>
             <div class="contact-content">
                 <p>I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.</p>
-                <p><strong>Phone:</strong> +8801521786598</p>
-                <a href="tel:+8801521786598" class="btn">Call Me</a>
-                <a href="mailto:shamimosman344@gmail.com" class="btn btn-outline">Email</a>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+                    <a href="https://wa.me/8801639815290" target="_blank" class="btn" style="display: inline-flex; align-items: center; gap: 0.5rem; background: #25D366;"><i class="fa-brands fa-whatsapp" style="font-size: 1.25rem;"></i> WhatsApp</a>
+                    <a href="mailto:shamimosman344@gmail.com" class="btn btn-outline" style="display: inline-flex; align-items: center; gap: 0.5rem;"><i class="fa-solid fa-envelope" style="font-size: 1.25rem;"></i> Email</a>
+                    <a href="tel:+8801639815290" class="btn btn-outline" style="display: inline-flex; align-items: center; gap: 0.5rem;"><i class="fa-solid fa-phone" style="font-size: 1.25rem;"></i> Call</a>
+                </div>
                 <div class="social-links">
-                    <a href="#">GitHub</a>
-                    <a href="#">LinkedIn</a>
-                    <a href="#">Twitter</a>
+                    <a href="https://www.linkedin.com/in/md-shamim-osman-chowdhury-24b482256?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="https://www.facebook.com/share/1KXLmrhyMU/" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://github.com/Yildirim28" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
                 </div>
             </div>
         </div>
@@ -504,6 +525,7 @@
                 card.className = 'project-card fade-in';
                 
                 const tagsHtml = project.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('');
+                const urlHtml = project.url ? `<a href="${project.url}" target="_blank" class="project-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>` : '';
                 
                 card.innerHTML = `
                     <h3>${project.title}</h3>
@@ -511,6 +533,7 @@
                     <div class="project-tags">
                         ${tagsHtml}
                     </div>
+                    ${urlHtml}
                 `;
                 projectsGrid.appendChild(card);
                 // Set timeout to allow DOM to paint before observing
