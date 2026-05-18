@@ -306,6 +306,44 @@
                 padding: 4rem 0;
             }
         }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
     </style>
 </head>
 <body>
@@ -349,54 +387,25 @@
     </section>
 
     <section id="projects">
-        <div class="container">
+        <div class="container fade-in">
             <h2 class="section-title">Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <h3>Project One</h3>
-                    <p>A web application that helps users manage their daily tasks efficiently with a clean, intuitive interface.</p>
-                    <div class="project-tags">
-                        <span class="project-tag">HTML</span>
-                        <span class="project-tag">CSS</span>
-                        <span class="project-tag">JavaScript</span>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <h3>Project Two</h3>
-                    <p>An e-commerce platform with real-time inventory management and seamless checkout experience.</p>
-                    <div class="project-tags">
-                        <span class="project-tag">React</span>
-                        <span class="project-tag">Node.js</span>
-                        <span class="project-tag">MongoDB</span>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <h3>Project Three</h3>
-                    <p>A data visualization dashboard that transforms complex datasets into actionable insights.</p>
-                    <div class="project-tags">
-                        <span class="project-tag">Python</span>
-                        <span class="project-tag">D3.js</span>
-                        <span class="project-tag">API</span>
-                    </div>
-                </div>
+            <div class="filter-container" id="filter-container">
+                <button class="filter-btn active" data-filter="All">All</button>
+                <button class="filter-btn" data-filter="Web">Web</button>
+                <button class="filter-btn" data-filter="Fullstack">Fullstack</button>
+                <button class="filter-btn" data-filter="Data">Data</button>
+            </div>
+            <div class="projects-grid" id="projects-grid">
+                <!-- Dynamically populated -->
             </div>
         </div>
     </section>
 
     <section id="skills">
-        <div class="container">
+        <div class="container fade-in">
             <h2 class="section-title">Skills</h2>
-            <div class="skills-grid">
-                <span class="skill-tag">JavaScript</span>
-                <span class="skill-tag">TypeScript</span>
-                <span class="skill-tag">React</span>
-                <span class="skill-tag">Node.js</span>
-                <span class="skill-tag">HTML</span>
-                <span class="skill-tag">CSS</span>
-                <span class="skill-tag">Python</span>
-                <span class="skill-tag">Git</span>
-                <span class="skill-tag">SQL</span>
-                <span class="skill-tag">REST APIs</span>
+            <div class="skills-grid" id="skills-grid">
+                <!-- Dynamically populated -->
             </div>
         </div>
     </section>
@@ -442,6 +451,90 @@
             document.documentElement.setAttribute('data-theme', 'dark');
             document.querySelector('.theme-toggle').textContent = '☀️';
         }
+
+        // Animation Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Load Data and Initialize Interactive Elements
+        let allProjects = [];
+
+        async function loadPortfolioData() {
+            try {
+                const response = await fetch('data.json');
+                const data = await response.json();
+                
+                // Populate Skills
+                const skillsGrid = document.getElementById('skills-grid');
+                data.skills.forEach(skill => {
+                    const skillTag = document.createElement('span');
+                    skillTag.className = 'skill-tag fade-in';
+                    skillTag.textContent = skill;
+                    skillsGrid.appendChild(skillTag);
+                    observer.observe(skillTag);
+                });
+
+                // Populate Projects
+                allProjects = data.projects;
+                renderProjects(allProjects);
+
+                // Initialize animations for other sections
+                document.querySelector('.hero-content').classList.add('fade-in');
+                document.querySelector('#about .container').classList.add('fade-in');
+                document.querySelector('#contact .container').classList.add('fade-in');
+                document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+            } catch (error) {
+                console.error('Error loading portfolio data:', error);
+                document.getElementById('projects-grid').innerHTML = '<p>Error loading projects. Make sure you are using a local server.</p>';
+            }
+        }
+
+        function renderProjects(projects) {
+            const projectsGrid = document.getElementById('projects-grid');
+            projectsGrid.innerHTML = '';
+            
+            projects.forEach(project => {
+                const card = document.createElement('div');
+                card.className = 'project-card fade-in';
+                
+                const tagsHtml = project.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('');
+                
+                card.innerHTML = `
+                    <h3>${project.title}</h3>
+                    <p>${project.description}</p>
+                    <div class="project-tags">
+                        ${tagsHtml}
+                    </div>
+                `;
+                projectsGrid.appendChild(card);
+                // Set timeout to allow DOM to paint before observing
+                setTimeout(() => observer.observe(card), 50);
+            });
+        }
+
+        // Filter Logic
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+
+                const filter = e.target.getAttribute('data-filter');
+                if (filter === 'All') {
+                    renderProjects(allProjects);
+                } else {
+                    const filtered = allProjects.filter(p => p.category === filter);
+                    renderProjects(filtered);
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', loadPortfolioData);
     </script>
 </body>
 </html>
