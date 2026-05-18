@@ -21,24 +21,24 @@
     },
     {
       "id": 2,
-      "title": "Project Two",
+      "title": "ServeLink",
       "description": "An e-commerce platform with real-time inventory management and seamless checkout experience.",
       "category": "Fullstack",
-      "tags": ["React", "Node.js", "MongoDB"]
+      "tags": ["MySQL", "HTML", "CSS", "JavaScript", "PHP"]
     },
     {
       "id": 3,
-      "title": "Project Three",
-      "description": "A data visualization dashboard that transforms complex datasets into actionable insights.",
-      "category": "Data",
-      "tags": ["Python", "D3.js", "API"]
+      "title": "BookSwap",
+      "description": "System Analysis and Design course project: A platform to buy and sell used books, featuring online publishing, audiobooks, an AI assistant to summarize books, community groups, and P2P chat.",
+      "category": "Fullstack",
+      "tags": ["HTML", "PHP", "MySQL", "Figma", "CSS", "JavaScript", "DeepSeek API"]
     },
     {
       "id": 4,
       "title": "FindYourPain",
       "description": "A UIU tentative exam routine finder tool that helps students locate and visualize their exam schedules with conflict warnings.",
       "category": "Web",
-      "tags": ["HTML", "CSS", "JavaScript"],
+      "tags": ["JSON", "HTML", "CSS", "JavaScript"],
       "url": "https://yildirim28.github.io/FindYourPain/"
     }
   ]
