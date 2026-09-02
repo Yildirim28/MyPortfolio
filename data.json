@@ -44,6 +44,22 @@
       "category": "Web",
       "tags": ["JSON", "HTML", "CSS", "JavaScript", "DOM"],
       "url": "https://yildirim28.github.io/FindYourPain/"
+    },
+    {
+      "id": 5,
+      "title": "Medisoft Telemedicine Platform",
+      "description": "A comprehensive telemedicine healthcare platform connecting patients and doctors for seamless online consultations.",
+      "category": "Fullstack",
+      "tags": ["JavaScript", "HTML", "CSS"],
+      "url": "https://github.com/Yildirim28/Medisoft--Telemedicine-Healthcare-Platform"
+    },
+    {
+      "id": 6,
+      "title": "Panda Lite API System Testing (STQA)",
+      "description": "Comprehensive System Testing Report covering Auth, Restaurant, and Menu endpoints, demonstrating expertise in Software Testing and Quality Assurance.",
+      "category": "STQA",
+      "tags": ["Testing", "QA", "API Testing", "Documentation"],
+      "highlight": true
     }
   ]
 }
