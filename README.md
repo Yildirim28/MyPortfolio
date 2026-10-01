@@ -10,6 +10,7 @@ This is a responsive, modern portfolio built using HTML, CSS, and Vanilla JavaSc
 
 ## Key Features
 - **Dynamic Content**: Projects and skills are dynamically loaded from a central `data.json` file.
+- **Downloadable CV**: A "Download CV" button in the hero section serves `CV.pdf` — to update your CV, simply replace that file (no code changes needed).
 - **Interactive Filtering**: Easily filter projects by category (Web, Fullstack, Data, etc.) with a single click.
 - **Smooth Animations**: Intersection Observers trigger smooth fade-in and slide-up animations as elements scroll into view.
 - **Fully Responsive**: Carefully designed to look great on desktop, tablet, and mobile devices.

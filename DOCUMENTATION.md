@@ -23,6 +23,7 @@ portfolio/
 ├── data.json        # The data source for skills and projects
 ├── README.md        # A brief overview of the project
 ├── Akash.jpg        # Profile image (hero section)
+├── CV.pdf           # Downloadable CV linked from the hero section (replace to update)
 └── CNAME            # Custom domain configuration for GitHub Pages
 ```
 
@@ -85,6 +86,17 @@ To change your name, title, bio, or contact information, you will need to edit `
 2. **About Section**: Locate the `#about` section to update your biography.
 3. **Contact Section**: Locate the `#contact` section to update your email, phone number, and social media links.
 4. **Profile Image**: Replace `Akash.jpg` with your own image, ensuring the filename remains the same or update the `src` attribute of the `<img class="avatar">` in `index.html`.
+
+### Updating Your CV
+The "Download CV" button in the hero section links to `CV.pdf` at the root of the project. To update your CV without touching any code:
+1. Export your new CV as a PDF.
+2. Overwrite the existing `CV.pdf` file in the project root (keep the exact filename `CV.pdf`):
+   ```bash
+   cp /path/to/your/new-cv.pdf ./CV.pdf
+   ```
+3. Commit and push the change. The button will automatically serve the new file.
+
+**Note:** The link uses a stable filename (`CV.pdf`) plus the HTML `download` attribute, so no HTML edits are ever needed when your CV changes. If visitors appear to see an old version, it is browser caching — a hard refresh (Ctrl+Shift+R) fixes it, and GitHub Pages caches expire within minutes.
 
 ---
 
