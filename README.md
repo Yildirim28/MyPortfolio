@@ -25,4 +25,4 @@ This is a responsive, modern portfolio built using HTML, CSS, and Vanilla JavaSc
 - [LinkedIn Profile](https://www.linkedin.com/in/md-shamim-osman-chowdhury-24b482256?utm_source=share_via&utm_content=profile&utm_medium=member_android)
 - [Facebook Profile](https://www.facebook.com/share/1KXLmrhyMU/)
 - **WhatsApp**: +8801639815290
-- **Email**: shamimosman344@gmail.com
+- **Email**: shamimosmanakash330@gmail.com
