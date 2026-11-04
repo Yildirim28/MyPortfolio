@@ -56,7 +56,8 @@
       "description": "Automated account lifecycle flows with a Playwright and TypeScript framework built on the Page Object Model and GitHub Actions.",
       "category": "SQA",
       "tags": ["Playwright", "TypeScript", "POM", "GitHub Actions"],
-      "private": true
+      "url": "https://github.com/Yildirim28/OrangeHRM",
+      "linkLabel": "View repository"
     },
     {
       "id": 2,
