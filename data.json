@@ -18,48 +18,73 @@
   "projects": [
     {
       "id": 1,
-      "title": "Project One",
-      "description": "A web application that helps users manage their daily tasks efficiently with a clean, intuitive interface.",
-      "category": "Web",
-      "tags": ["HTML", "CSS", "JavaScript"]
+      "title": "OrangeHRM Playwright POM Automation",
+      "description": "Automated account lifecycle flows with a Playwright + TypeScript framework built on the Page Object Model and wired into GitHub Actions CI/CD.",
+      "category": "STQA",
+      "tags": ["Playwright", "TypeScript", "POM", "GitHub Actions"],
+      "url": "https://github.com/Yildirim28/OrangeHRM"
     },
     {
       "id": 2,
-      "title": "ServeLink",
-      "description": "An e-commerce platform with real-time inventory management and seamless checkout experience.",
-      "category": "Fullstack",
-      "tags": ["MySQL", "HTML", "CSS", "JavaScript", "PHP"]
+      "title": "CartUp Shopping Flow E2E Test Automation",
+      "description": "End-to-end e-commerce test suite covering login, product search, cart updates, and checkout initiation, run across Chromium, Firefox, and WebKit in CI.",
+      "category": "STQA",
+      "tags": ["Playwright", "TypeScript", "POM", "GitHub Actions"],
+      "url": "https://github.com/Yildirim28/cartup-shopping-flow-test"
     },
     {
       "id": 3,
-      "title": "BookSwap",
-      "description": "System Analysis and Design course project: A platform to buy and sell used books, featuring online publishing, audiobooks, an AI assistant to summarize books, community groups, and P2P chat.",
-      "category": "Fullstack",
-      "tags": ["HTML", "PHP", "MySQL", "Figma", "CSS", "JavaScript", "DeepSeek API"]
+      "title": "Parking Slot Booking System - Unit & Mutation Testing",
+      "description": "34 JUnit 5 test cases using boundary value analysis and equivalence partitioning, plus PITest mutation testing that exposed 8 critical domain-logic defects.",
+      "category": "STQA",
+      "tags": ["Java", "JUnit 5", "PITest", "Maven"],
+      "url": "https://github.com/Yildirim28/unitTesting_Parking_System"
     },
     {
       "id": 4,
+      "title": "Panda Lite - API Testing & Validation",
+      "description": "End-to-end REST API validation with Postman covering auth, restaurant, and menu endpoints, including HTTP status codes and request/response payloads.",
+      "category": "STQA",
+      "tags": ["Postman", "REST API", "JSON", "API Testing"],
+      "highlight": true
+    },
+    {
+      "id": 5,
       "title": "FindYourPain",
-      "description": "A UIU tentative exam routine finder tool that helps students locate and visualize their exam schedules with conflict warnings.",
+      "description": "A UIU tentative exam routine finder tool that helps students locate and visualize their exam schedules with smart search hints and conflict warnings.",
       "category": "Web",
       "tags": ["JSON", "HTML", "CSS", "JavaScript", "DOM"],
       "url": "https://yildirim28.github.io/FindYourPain/"
     },
     {
-      "id": 5,
+      "id": 6,
+      "title": "Pocket Manager - Expense Tracking PWA",
+      "description": "A progressive web app for expense management with offline support, real-time budget tracking, bill splitting, and automated PDF exports.",
+      "category": "Web",
+      "tags": ["JavaScript", "Tailwind CSS", "Supabase", "PWA"],
+      "url": "https://yildirim28.github.io/Pocket-Manager/"
+    },
+    {
+      "id": 7,
       "title": "Medisoft Telemedicine Platform",
-      "description": "A comprehensive telemedicine healthcare platform connecting patients and doctors for seamless online consultations.",
+      "description": "A healthcare platform with doctor appointments, hospital bed reservations, emergency ambulance requests, and online medicine ordering, with role-based access for patients, doctors, and admins.",
       "category": "Fullstack",
-      "tags": ["JavaScript", "HTML", "CSS"],
+      "tags": ["React", "Vue", "Django", "MySQL"],
       "url": "https://github.com/Yildirim28/Medisoft--Telemedicine-Healthcare-Platform"
     },
     {
-      "id": 6,
-      "title": "Panda Lite API System Testing (STQA)",
-      "description": "Comprehensive System Testing Report covering Auth, Restaurant, and Menu endpoints, demonstrating expertise in Software Testing and Quality Assurance.",
-      "category": "STQA",
-      "tags": ["Testing", "QA", "API Testing", "Documentation"],
-      "highlight": true
+      "id": 8,
+      "title": "ServeLink",
+      "description": "An e-commerce platform with real-time inventory management and a seamless checkout experience.",
+      "category": "Fullstack",
+      "tags": ["MySQL", "HTML", "CSS", "JavaScript", "PHP"]
+    },
+    {
+      "id": 9,
+      "title": "BookSwap",
+      "description": "System Analysis and Design course project: a platform to buy and sell used books, featuring online publishing, audiobooks, an AI assistant to summarize books, community groups, and P2P chat.",
+      "category": "Fullstack",
+      "tags": ["HTML", "PHP", "MySQL", "Figma", "CSS", "JavaScript", "DeepSeek API"]
     }
   ]
 }
