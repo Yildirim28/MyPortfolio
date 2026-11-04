@@ -1,90 +1,130 @@
 {
-  "skills": [
-    "JavaScript",
-    "TypeScript",
-    "React",
-    "Node.js",
-    "HTML",
-    "CSS",
-    "Python",
-    "Git",
-    "SQL",
-    "REST APIs",
-    "Artificial Intelligence",
-    "Machine Learning",
-    "Data Mining",
-    "Model Building"
+  "skillGroups": [
+    {
+      "title": "Programming & Development",
+      "items": [
+        "JavaScript & TypeScript",
+        "Python",
+        "Java, C & C++",
+        "HTML & CSS",
+        "React & Node.js",
+        "PHP",
+        "REST APIs"
+      ]
+    },
+    {
+      "title": "Data, AI & Systems",
+      "items": [
+        "MySQL & SQL",
+        "Artificial Intelligence",
+        "Machine Learning",
+        "Data Mining",
+        "Model Building",
+        "Linux & Windows",
+        "Supabase"
+      ]
+    },
+    {
+      "title": "SQA Engineering",
+      "items": [
+        "Manual & Functional Testing",
+        "Playwright UI Automation",
+        "API Testing with Postman",
+        "Unit & Regression Testing",
+        "Jira Defect Tracking",
+        "SDLC / STLC",
+        "AI-Assisted Testing"
+      ]
+    },
+    {
+      "title": "Tools & Professional",
+      "items": [
+        "Git & GitHub",
+        "GitHub Actions",
+        "SRS / BRS Analysis",
+        "Bug & Test Documentation",
+        "Problem Solving",
+        "Leadership & Coordination",
+        "Bengali & English"
+      ]
+    }
   ],
   "projects": [
     {
       "id": 1,
       "title": "OrangeHRM Playwright POM Automation",
-      "description": "Automated account lifecycle flows with a Playwright + TypeScript framework built on the Page Object Model and wired into GitHub Actions CI/CD.",
-      "category": "STQA",
+      "description": "Automated account lifecycle flows with a Playwright and TypeScript framework built on the Page Object Model and GitHub Actions.",
+      "category": "SQA",
       "tags": ["Playwright", "TypeScript", "POM", "GitHub Actions"],
-      "url": "https://github.com/Yildirim28/OrangeHRM"
+      "private": true
     },
     {
       "id": 2,
-      "title": "CartUp Shopping Flow E2E Test Automation",
-      "description": "End-to-end e-commerce test suite covering login, product search, cart updates, and checkout initiation, run across Chromium, Firefox, and WebKit in CI.",
-      "category": "STQA",
-      "tags": ["Playwright", "TypeScript", "POM", "GitHub Actions"],
-      "url": "https://github.com/Yildirim28/cartup-shopping-flow-test"
+      "title": "CartUp Shopping Flow E2E Automation",
+      "description": "Covered login, product search, cart updates, and checkout initiation across Chromium, Firefox, and WebKit.",
+      "category": "SQA",
+      "tags": ["Playwright", "TypeScript", "CI", "Cross-browser"],
+      "url": "https://github.com/Yildirim28/cartup-shopping-flow-test",
+      "linkLabel": "View repository"
     },
     {
       "id": 3,
-      "title": "Parking Slot Booking System - Unit & Mutation Testing",
-      "description": "34 JUnit 5 test cases using boundary value analysis and equivalence partitioning, plus PITest mutation testing that exposed 8 critical domain-logic defects.",
-      "category": "STQA",
+      "title": "Parking System Unit & Mutation Testing",
+      "description": "Implemented 34 JUnit 5 tests with boundary value analysis, equivalence partitioning, and PITest mutation testing.",
+      "category": "SQA",
       "tags": ["Java", "JUnit 5", "PITest", "Maven"],
-      "url": "https://github.com/Yildirim28/unitTesting_Parking_System"
+      "url": "https://github.com/Yildirim28/unitTesting_Parking_System",
+      "linkLabel": "View repository"
     },
     {
       "id": 4,
-      "title": "Panda Lite - API Testing & Validation",
-      "description": "End-to-end REST API validation with Postman covering auth, restaurant, and menu endpoints, including HTTP status codes and request/response payloads.",
-      "category": "STQA",
+      "title": "Panda Lite API Testing & Validation",
+      "description": "Validated authentication, restaurant, and menu APIs through endpoint, status-code, and payload assertions in Postman.",
+      "category": "SQA",
       "tags": ["Postman", "REST API", "JSON", "API Testing"],
-      "highlight": true
+      "url": "https://github.com/Yildirim28/panda-lite-system-testing",
+      "linkLabel": "View repository"
     },
     {
       "id": 5,
       "title": "FindYourPain",
-      "description": "A UIU tentative exam routine finder tool that helps students locate and visualize their exam schedules with smart search hints and conflict warnings.",
+      "description": "A responsive UIU tentative-exam routine finder with smart search hints, duplicate filtering, and conflict warnings.",
       "category": "Web",
-      "tags": ["JSON", "HTML", "CSS", "JavaScript", "DOM"],
-      "url": "https://yildirim28.github.io/FindYourPain/"
+      "tags": ["HTML", "CSS", "JavaScript", "JSON", "DOM"],
+      "url": "https://yildirim28.github.io/FindYourPain/",
+      "linkLabel": "View live app"
     },
     {
       "id": 6,
-      "title": "Pocket Manager - Expense Tracking PWA",
-      "description": "A progressive web app for expense management with offline support, real-time budget tracking, bill splitting, and automated PDF exports.",
+      "title": "Pocket Manager PWA",
+      "description": "An expense-management PWA with offline support, budget tracking, bill splitting, Supabase, and PDF exports.",
       "category": "Web",
       "tags": ["JavaScript", "Tailwind CSS", "Supabase", "PWA"],
-      "url": "https://yildirim28.github.io/Pocket-Manager/"
+      "url": "https://yildirim28.github.io/Pocket-Manager/",
+      "linkLabel": "View live app"
     },
     {
       "id": 7,
       "title": "Medisoft Telemedicine Platform",
-      "description": "A healthcare platform with doctor appointments, hospital bed reservations, emergency ambulance requests, and online medicine ordering, with role-based access for patients, doctors, and admins.",
+      "description": "Healthcare platform for appointments, bed reservations, ambulances, medicine orders, and role-based access.",
       "category": "Fullstack",
       "tags": ["React", "Vue", "Django", "MySQL"],
-      "url": "https://github.com/Yildirim28/Medisoft--Telemedicine-Healthcare-Platform"
+      "url": "https://github.com/Yildirim28/Medisoft--Telemedicine-Healthcare-Platform",
+      "linkLabel": "View repository"
     },
     {
       "id": 8,
       "title": "ServeLink",
-      "description": "An e-commerce platform with real-time inventory management and a seamless checkout experience.",
+      "description": "An e-commerce platform with real-time inventory management and a streamlined checkout experience.",
       "category": "Fullstack",
-      "tags": ["MySQL", "HTML", "CSS", "JavaScript", "PHP"]
+      "tags": ["PHP", "MySQL", "HTML", "CSS", "JavaScript"]
     },
     {
       "id": 9,
       "title": "BookSwap",
-      "description": "System Analysis and Design course project: a platform to buy and sell used books, featuring online publishing, audiobooks, an AI assistant to summarize books, community groups, and P2P chat.",
+      "description": "A used-book marketplace with publishing, audiobooks, AI summaries, community groups, and peer-to-peer chat.",
       "category": "Fullstack",
-      "tags": ["HTML", "PHP", "MySQL", "Figma", "CSS", "JavaScript", "DeepSeek API"]
+      "tags": ["PHP", "MySQL", "Figma", "DeepSeek API"]
     }
   ]
 }

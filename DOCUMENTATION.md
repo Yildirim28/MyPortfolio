@@ -30,37 +30,32 @@ portfolio/
 ## Architecture and Features
 
 ### 1. Dynamic Data Loading
-The website uses the Fetch API to load `data.json` asynchronously when the DOM is fully loaded. This JSON file acts as a simple database for the portfolio.
-- **Skills**: Rendered dynamically into the `#skills-grid`.
+The website uses the Fetch API to load `data.json` asynchronously. Static project cards and skill groups remain in the HTML as an SEO and no-JavaScript fallback.
+- **Skills**: Rendered dynamically into `#skill-groups`.
 - **Projects**: Rendered dynamically into the `#projects-grid`.
 
 ### 2. Filtering System
-The projects section includes a filtering mechanism. It allows users to filter projects by categories (e.g., Web, Fullstack, Data). The filtering logic is handled in JavaScript by listening to click events on the `.filter-btn` elements and re-rendering the `projects-grid` with the filtered array.
+Project filter buttons are generated automatically from the unique `category` values in `data.json`. The current categories are SQA, Web, and Fullstack, and adding another category requires no HTML changes.
 
-### 3. Intersection Observer (Scroll Animations)
-To provide a smooth and engaging user experience, an `IntersectionObserver` is used to detect when elements enter the viewport. Elements with the `.fade-in` class are given a `.visible` class when scrolled into view, triggering CSS transition animations.
+### 3. Progressive Enhancements
+Intersection Observers activate scroll reveals, statistics counters, and the current navigation link. All content remains readable when motion is reduced, Intersection Observer is unavailable, or JavaScript is disabled.
 
-### 4. Dark Mode Theme Toggle
-The website supports a built-in dark mode.
-- A toggle button switches between light and dark themes by modifying the `data-theme` attribute on the `<html>` tag.
-- CSS variables (Custom Properties) are used to seamlessly swap colors.
-- The user's preference is saved in the browser's `localStorage` so that the theme persists across visits.
+### 4. Responsive Navigation
+The desktop navigation collapses into an accessible mobile menu. The toggle updates `aria-expanded`, closes after navigation, supports the Escape key, and restores the desktop state after resizing.
 
 ---
 
 ## How to Update Content
 
-You can easily update the content of your portfolio without touching the HTML file. All textual content regarding your skills and projects is stored in `data.json`.
+Projects and grouped skills are maintained in `data.json`. Core identity, About, experience, education, and contact content remain semantic HTML in `index.html`.
 
 ### Updating Skills
-To add or remove a skill, edit the `skills` array in `data.json`:
+To add or remove a skill, edit an entry inside the `skillGroups` array in `data.json`:
 ```json
-"skills": [
-  "JavaScript",
-  "React",
-  "Python",
-  "New Skill"
-]
+{
+  "title": "Programming & Development",
+  "items": ["JavaScript & TypeScript", "Python", "New Skill"]
+}
 ```
 
 ### Updating Projects
@@ -77,15 +72,17 @@ To add a new project, append a new object to the `projects` array in `data.json`
 ```
 **Notes on Projects:**
 - **id**: Make sure each project has a unique ID.
-- **category**: Must match one of the categories defined in the filter buttons in `index.html` (e.g., `Web`, `Fullstack`, `Data`) to be filtered correctly. If you add a new category here, remember to add a corresponding `<button class="filter-btn" data-filter="NewCategory">NewCategory</button>` in `index.html`.
-- **url**: This is optional. If provided, a "Live Demo" link will appear on the project card.
+- **category**: Generates its own filter button automatically.
+- **url**: Optional external project URL.
+- **linkLabel**: Optional link text such as "View live app".
+- **private**: Set to `true` to show "Private repository" without an inaccessible link.
 
 ### Updating Personal Information
 To change your name, title, bio, or contact information, you will need to edit `index.html`:
-1. **Hero Section**: Locate the `.hero-text` div to update your name and tagline.
+1. **Hero Section**: Locate the `.hero-copy` div to update your name and tagline.
 2. **About Section**: Locate the `#about` section to update your biography.
-3. **Contact Section**: Locate the `#contact` section to update your email, phone number, and social media links.
-4. **Profile Image**: Replace `Akash.jpg` with your own image, ensuring the filename remains the same or update the `src` attribute of the `<img class="avatar">` in `index.html`.
+3. **Contact Section**: Locate the `#contacts` section to update your email, phone number, and social media links.
+4. **Profile Image**: Replace `Akash.jpg` while keeping the filename, or update the image inside `.hero-portrait`.
 
 ### Updating Your CV
 The "Download CV" button in the hero section links to `CV.pdf` at the root of the project. To update your CV without touching any code:
@@ -108,13 +105,12 @@ The color scheme is controlled by CSS variables located at the top of the `<styl
 To change colors, modify the variables in the `:root` pseudo-class:
 ```css
 :root {
-    --bg-primary: #ffffff;
-    --text-primary: #1a1a1a;
-    --accent: #2563eb; /* Change your primary accent color here */
+    --color-bg: #111a24;
+    --color-text: #ffffff;
+    --color-accent: #f2705a;
     /* ... */
 }
 ```
-For dark mode colors, modify the `[data-theme="dark"]` selector block.
 
 ---
 
@@ -136,4 +132,4 @@ This project is perfectly suited for static hosting platforms like GitHub Pages,
 *(Note: Since you have a `CNAME` file, GitHub Pages will automatically attempt to route the domain specified in that file to your site).*
 
 ---
-*Documentation last updated: May 2026*
+*Documentation last updated: November 2026*
