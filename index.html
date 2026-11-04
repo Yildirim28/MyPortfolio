@@ -862,72 +862,120 @@
 
         /* Contact section */
         .contact {
+            position: relative;
+            overflow: hidden;
             padding: 90px 0;
-            background: var(--color-accent);
-            color: var(--color-bg-deep);
+            border-top: 1px solid rgba(242, 112, 90, 0.24);
+            background:
+                radial-gradient(circle at 82% 18%, rgba(242, 112, 90, 0.13), transparent 30%),
+                linear-gradient(135deg, #172431, #223746);
+            color: var(--color-text);
+        }
+
+        .contact::before {
+            position: absolute;
+            top: -180px;
+            right: -140px;
+            width: 460px;
+            height: 460px;
+            border: 1px solid rgba(242, 112, 90, 0.15);
+            border-radius: 50%;
+            content: "";
+            pointer-events: none;
         }
 
         .contact-layout {
-            display: flex;
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: minmax(0, 0.9fr) minmax(500px, 1.1fr);
             align-items: center;
-            justify-content: space-between;
-            gap: 48px;
+            gap: 72px;
         }
 
         .contact-details {
             display: grid;
-            min-width: min(100%, 370px);
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 12px;
-            justify-items: start;
         }
 
         .contact .section-kicker {
-            color: rgba(13, 21, 30, 0.68);
+            color: #ff806c;
         }
 
         .contact h2 {
+            margin-bottom: 16px;
+        }
+
+        .contact-location {
             margin-bottom: 0;
-        }
-
-        .button-dark {
-            flex: 0 0 auto;
-            border-color: var(--color-bg-deep);
-            background: var(--color-bg-deep);
-            color: var(--color-text);
-        }
-
-        .button-dark:hover {
-            background: transparent;
-            color: var(--color-bg-deep);
-        }
-
-        .contact-direct {
-            color: var(--color-bg-deep);
+            color: #a3afbb;
             font-size: 13px;
-            font-weight: 600;
-            text-decoration-color: rgba(13, 21, 30, 0.45);
-            text-underline-offset: 4px;
         }
 
-        .contact-socials {
+        .contact-link {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px 20px;
-            margin-top: 10px;
+            min-width: 0;
+            min-height: 76px;
+            align-items: center;
+            gap: 13px;
+            border: 1px solid rgba(255, 255, 255, 0.11);
+            border-radius: 4px;
+            padding: 13px;
+            background: rgba(255, 255, 255, 0.035);
+            color: var(--color-text);
+            text-decoration: none;
+            transition: transform var(--transition), border-color var(--transition), background-color var(--transition);
         }
 
-        .contact-socials a {
-            color: var(--color-bg-deep);
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-decoration: none;
+        .contact-link:hover {
+            transform: translateY(-3px);
+            border-color: rgba(242, 112, 90, 0.75);
+            background: rgba(242, 112, 90, 0.08);
+        }
+
+        .contact-icon {
+            display: grid;
+            width: 40px;
+            height: 40px;
+            flex: 0 0 40px;
+            place-items: center;
+            border-radius: 3px;
+            background: rgba(242, 112, 90, 0.12);
+            color: #ff806c;
+        }
+
+        .contact-icon svg {
+            width: 21px;
+            height: 21px;
+            fill: none;
+            stroke: currentColor;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 1.8;
+        }
+
+        .contact-link-copy {
+            display: grid;
+            min-width: 0;
+            gap: 2px;
+        }
+
+        .contact-label {
+            color: #a3afbb;
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 0.11em;
             text-transform: uppercase;
         }
 
-        .contact-socials a:hover {
-            text-decoration: underline;
-            text-underline-offset: 4px;
+        .contact-value {
+            overflow: hidden;
+            color: var(--color-text);
+            font-size: 11px;
+            font-weight: 600;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         /* Footer */
@@ -1073,8 +1121,9 @@
             }
 
             .contact-layout {
-                align-items: flex-start;
-                flex-direction: column;
+                grid-template-columns: 1fr;
+                align-items: start;
+                gap: 42px;
             }
 
             .contact-details {
@@ -1190,13 +1239,20 @@
                 min-height: 0;
             }
 
-            .projects h2,
-            .contact h2 {
+            .projects h2 {
                 margin-bottom: 34px;
             }
 
             .contact {
                 padding: 72px 0;
+            }
+
+            .contact-details {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-link {
+                min-height: 70px;
             }
 
             .site-footer .container {
@@ -1556,19 +1612,51 @@ I’m now looking for a Junior QA / SQA Engineer role where I can contribute to 
                 <div>
                     <p class="section-kicker">Let's connect</p>
                     <h2 id="contact-title">Let's build useful, reliable software.</h2>
-                    <p>Badda, Dhaka, Bangladesh</p>
+                    <p class="contact-location">Badda, Dhaka, Bangladesh</p>
                 </div>
-                <div class="contact-details">
-                    <a class="button button-dark" href="mailto:shamimosmanakash330@gmail.com">Send an email</a>
-                    <a class="contact-direct" href="mailto:shamimosmanakash330@gmail.com">shamimosmanakash330@gmail.com</a>
-                    <a class="contact-direct" href="tel:+8801639815290">+880 1639 815290</a>
-                    <nav class="contact-socials" aria-label="Social media links">
-                        <a href="https://github.com/Yildirim28" target="_blank" rel="noopener noreferrer">GitHub</a>
-                        <a href="https://www.linkedin.com/in/md-shamim-osman-chowdhury-24b482256" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                        <a href="https://wa.me/8801639815290" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-                        <a href="https://www.facebook.com/share/1KXLmrhyMU/" target="_blank" rel="noopener noreferrer">Facebook</a>
-                    </nav>
-                </div>
+                <nav class="contact-details" aria-label="Contact and social links">
+                    <a class="contact-link" href="https://github.com/Yildirim28" target="_blank" rel="noopener noreferrer" aria-label="Open GitHub profile">
+                        <span class="contact-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.3-.4 6.8-1.6 6.8-7A5.4 5.4 0 0 0 19.4 4 5 5 0 0 0 19.3.5S18.2.1 15 2a13.4 13.4 0 0 0-7 0C4.8.1 3.7.5 3.7.5A5 5 0 0 0 3.6 4a5.4 5.4 0 0 0-1.4 3.7c0 5.4 3.5 6.6 6.8 7A4.8 4.8 0 0 0 8 18v4M8 19c-3 .9-3-1.5-4-2"></path></svg>
+                        </span>
+                        <span class="contact-link-copy"><span class="contact-label">GitHub</span><span class="contact-value">@Yildirim28</span></span>
+                    </a>
+
+                    <a class="contact-link" href="https://www.linkedin.com/in/md-shamim-osman-chowdhury-24b482256" target="_blank" rel="noopener noreferrer" aria-label="Open LinkedIn profile">
+                        <span class="contact-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24"><rect x="3" y="9" width="4" height="12"></rect><path d="M5 3.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM11 21v-7a5 5 0 0 1 10 0v7M11 9v12M21 21v-7"></path></svg>
+                        </span>
+                        <span class="contact-link-copy"><span class="contact-label">LinkedIn</span><span class="contact-value">Md. Shamim Osman</span></span>
+                    </a>
+
+                    <a class="contact-link" href="mailto:shamimosmanakash330@gmail.com" aria-label="Email Shamim">
+                        <span class="contact-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m3 6 9 7 9-7"></path></svg>
+                        </span>
+                        <span class="contact-link-copy"><span class="contact-label">Email</span><span class="contact-value">shamimosmanakash330@gmail.com</span></span>
+                    </a>
+
+                    <a class="contact-link" href="https://wa.me/8801639815290" target="_blank" rel="noopener noreferrer" aria-label="Message on WhatsApp">
+                        <span class="contact-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-4.7A8.5 8.5 0 1 1 20.5 11.5z"></path><path d="M8.2 7.8c.4 3.7 2.3 5.7 6 6.2M8.3 7.8l1.5-.5 1.2 2.4-1 1M14.2 14l.8-1 2.5 1.1-.5 1.5"></path></svg>
+                        </span>
+                        <span class="contact-link-copy"><span class="contact-label">WhatsApp</span><span class="contact-value">+880 1639 815290</span></span>
+                    </a>
+
+                    <a class="contact-link" href="https://www.facebook.com/share/1KXLmrhyMU/" target="_blank" rel="noopener noreferrer" aria-label="Open Facebook profile">
+                        <span class="contact-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3.5l.5-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        </span>
+                        <span class="contact-link-copy"><span class="contact-label">Facebook</span><span class="contact-value">Md. Shamim Osman</span></span>
+                    </a>
+
+                    <a class="contact-link" href="tel:+8801639815290" aria-label="Call Shamim">
+                        <span class="contact-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"></path></svg>
+                        </span>
+                        <span class="contact-link-copy"><span class="contact-label">Phone</span><span class="contact-value">+880 1639 815290</span></span>
+                    </a>
+                </nav>
             </div>
         </section>
     </main>
