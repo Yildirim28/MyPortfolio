@@ -126,6 +126,15 @@
       "description": "A used-book marketplace with publishing, audiobooks, AI summaries, community groups, and peer-to-peer chat.",
       "category": "Fullstack",
       "tags": ["PHP", "MySQL", "Figma", "DeepSeek API"]
+    },
+    {
+      "id": 10,
+      "title": "Derm-AI Skin Lesion Classification",
+      "description": "A Streamlit application that uses a fine-tuned MobileNetV2 model to classify skin lesion images into five categories with confidence scores, probability distributions, and uncertainty guidance.",
+      "category": "AI/ML",
+      "tags": ["Python", "Streamlit", "TensorFlow", "MobileNetV2", "Deep Learning"],
+      "url": "https://derm-ai-yildirim.streamlit.app/",
+      "linkLabel": "View live app"
     }
   ]
 }

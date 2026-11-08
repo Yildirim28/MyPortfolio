@@ -11,9 +11,9 @@ A responsive Computer Science and software engineering portfolio highlighting my
 
 - General CSE and software engineering profile with a highlighted SQA specialization
 - Experience, education, certification, leadership, technical skills, and downloadable CV
-- Nine projects covering SQA automation, API testing, web applications, PWAs, and full-stack platforms
+- Ten projects covering SQA automation, API testing, web applications, PWAs, full-stack platforms, and applied AI/ML
 - Dynamic project and skill rendering from `data.json`
-- Generated project filters for SQA, Web, and Fullstack categories
+- Generated project filters for SQA, Web, Fullstack, and AI/ML categories
 - Animated statistics, scroll reveals, and active navigation using `IntersectionObserver`
 - Dark responsive layout for desktop, tablet, and mobile devices
 - Accessible mobile navigation, visible focus states, semantic markup, and reduced-motion support
