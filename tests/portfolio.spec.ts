@@ -9,7 +9,8 @@ test("renders core portfolio content and project filters", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1, name: /software engineer/i })).toBeVisible();
   await expect(page.getByRole("heading", { level: 2, name: /projects across testing/i })).toBeVisible();
 
-  const sqaFilter = page.getByRole("button", { name: /sqa/i });
+  const projectFilters = page.getByRole("group", { name: "Filter projects" });
+  const sqaFilter = projectFilters.getByRole("button", { name: "SQA (4)", exact: true });
   await sqaFilter.click();
   await expect(sqaFilter).toHaveAttribute("aria-pressed", "true");
   await expect(page.locator('#projects [role="button"][aria-haspopup="dialog"]')).toHaveCount(4);
