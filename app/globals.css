@@ -128,7 +128,6 @@ select {
 }
 
 .glass-panel {
-  position: relative;
   overflow: hidden;
   border: 1px solid var(--glass-border);
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.018)),
@@ -136,6 +135,10 @@ select {
   box-shadow: var(--shadow-soft);
   backdrop-filter: blur(18px) saturate(125%);
   -webkit-backdrop-filter: blur(18px) saturate(125%);
+}
+
+.glass-panel:not(.absolute) {
+  position: relative;
 }
 
 .glass-panel::before {

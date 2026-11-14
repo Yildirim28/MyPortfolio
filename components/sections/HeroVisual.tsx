@@ -56,7 +56,7 @@ export function HeroVisual() {
       </motion.div>
 
       <motion.div
-        className="glass-panel absolute left-0 top-[20%] rounded-2xl px-4 py-3"
+        className="glass-panel absolute bottom-0 left-0 z-10 w-fit min-w-[12rem] max-w-[calc(100%_-_1rem)] rounded-2xl px-4 py-3"
         animate={shouldReduceMotion ? undefined : { y: [0, -8, 0] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       >
@@ -65,7 +65,7 @@ export function HeroVisual() {
       </motion.div>
 
       <motion.div
-        className="glass-panel absolute bottom-[14%] right-0 rounded-2xl px-4 py-3"
+        className="glass-panel absolute right-0 top-0 z-10 w-fit max-w-[calc(100%_-_1rem)] rounded-2xl px-4 py-3"
         animate={shouldReduceMotion ? undefined : { y: [0, 8, 0] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
       >
