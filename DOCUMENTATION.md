@@ -1,135 +1,126 @@
-# Portfolio Project Documentation
+# Portfolio Architecture and Maintenance
 
-Welcome to the documentation for the personal portfolio project. This guide provides detailed information on the project's architecture, file structure, and instructions on how to update and deploy the website.
+## Architecture
 
-## Table of Contents
-1. [Project Overview](#project-overview)
-2. [File Structure](#file-structure)
-3. [Architecture and Features](#architecture-and-features)
-4. [How to Update Content](#how-to-update-content)
-5. [Customization](#customization)
-6. [Deployment](#deployment)
+The portfolio uses Next.js App Router with a server-first component model. Identity, About, experience, initial project data, skills, contact information, metadata, and structured data render at build time. Client components are limited to interactions that require browser state.
 
----
+### Server Components
 
-## Project Overview
-This project is a single-page personal portfolio website built with HTML5, CSS3, and Vanilla JavaScript. It is designed to be fully responsive, accessible, and easily maintainable. The portfolio dynamically loads data (skills and projects) from a JSON file, eliminating the need to edit HTML code when adding new portfolio items.
+- `app/page.tsx`
+- Hero, technology strip, About, experience, projects shell, technical skills, contact, and footer
+- Typed project and skill data loading
+- Metadata and JSON-LD
 
-## File Structure
+### Client Components
 
-```text
-portfolio/
-├── index.html       # The main HTML structure, CSS styles, and JavaScript logic
-├── data.json        # The data source for skills and projects
-├── README.md        # A brief overview of the project
-├── Akash.jpg        # Profile image (hero section)
-├── CV.pdf           # Downloadable CV linked from the hero section (replace to update)
-└── CNAME            # Custom domain configuration for GitHub Pages
-```
+- `Header.tsx`: active navigation and accessible mobile drawer
+- `Reveal.tsx`: viewport-triggered section entrances
+- `AnimatedCounter.tsx`: statistics animation
+- `MagneticLink.tsx`: restrained pointer response for primary CTAs
+- `HeroVisual.tsx`: subtle desktop parallax and floating glass labels
+- `ProjectExplorer.tsx`: filters and animated layout changes
+- `ProjectCard.tsx`: pointer-aware tilt and interactive lighting
 
-## Architecture and Features
+No route or section becomes a Client Component solely for styling.
 
-### 1. Dynamic Data Loading
-The website uses the Fetch API to load `data.json` asynchronously. Static project cards and skill groups remain in the HTML as an SEO and no-JavaScript fallback.
-- **Skills**: Rendered dynamically into `#skill-groups`.
-- **Projects**: Rendered dynamically into the `#projects-grid`.
+## Content Sources
 
-### 2. Filtering System
-Project filter buttons are generated automatically from the unique `category` values in `data.json`. The current categories are SQA, Web, and Fullstack, and adding another category requires no HTML changes.
+### `data.json`
 
-### 3. Progressive Enhancements
-Intersection Observers activate scroll reveals, statistics counters, and the current navigation link. All content remains readable when motion is reduced, Intersection Observer is unavailable, or JavaScript is disabled.
+Preserves the original root structure:
 
-### 4. Responsive Navigation
-The desktop navigation collapses into an accessible mobile menu. The toggle updates `aria-expanded`, closes after navigation, supports the Escape key, and restores the desktop state after resizing.
-
----
-
-## How to Update Content
-
-Projects and grouped skills are maintained in `data.json`. Core identity, About, experience, education, and contact content remain semantic HTML in `index.html`.
-
-### Updating Skills
-To add or remove a skill, edit an entry inside the `skillGroups` array in `data.json`:
-```json
-{
-  "title": "Programming & Development",
-  "items": ["JavaScript & TypeScript", "Python", "New Skill"]
+```ts
+interface PortfolioData {
+  skillGroups: SkillGroup[];
+  projects: Project[];
 }
 ```
 
-### Updating Projects
-To add a new project, append a new object to the `projects` array in `data.json`:
-```json
-{
-  "id": 5,
-  "title": "New Project Title",
-  "description": "A short description of what the project does.",
-  "category": "Web",
-  "tags": ["React", "CSS", "API"],
-  "url": "https://link-to-live-demo.com"
-}
-```
-**Notes on Projects:**
-- **id**: Make sure each project has a unique ID.
-- **category**: Generates its own filter button automatically.
-- **url**: Optional external project URL.
-- **linkLabel**: Optional link text such as "View live app".
-- **private**: Set to `true` to show "Private repository" without an inaccessible link.
+`lib/portfolio.ts` validates project shapes, optional URLs, skill arrays, and unique project IDs during the build.
 
-### Updating Personal Information
-To change your name, title, bio, or contact information, you will need to edit `index.html`:
-1. **Hero Section**: Locate the `.hero-copy` div to update your name and tagline.
-2. **About Section**: Locate the `#about` section to update your biography.
-3. **Contact Section**: Locate the `#contacts` section to update your email, phone number, and social media links.
-4. **Profile Image**: Replace `Akash.jpg` while keeping the filename, or update the image inside `.hero-portrait`.
+### `data/site.ts`
 
-### Updating Your CV
-The "Download CV" button in the hero section links to `CV.pdf` at the root of the project. To update your CV without touching any code:
-1. Export your new CV as a PDF.
-2. Overwrite the existing `CV.pdf` file in the project root (keep the exact filename `CV.pdf`):
-   ```bash
-   cp /path/to/your/new-cv.pdf ./CV.pdf
-   ```
-3. Commit and push the change. The button will automatically serve the new file.
+Contains identity, navigation, technology strip, services, About copy, statistics, experience, education, certification, leadership, and contact information.
 
-**Note:** The link uses a stable filename (`CV.pdf`) plus the HTML `download` attribute, so no HTML edits are ever needed when your CV changes. If visitors appear to see an old version, it is browser caching — a hard refresh (Ctrl+Shift+R) fixes it, and GitHub Pages caches expire within minutes.
+## Design System
 
----
+The design tokens live in `app/globals.css` and are exposed to Tailwind through `@theme inline`.
 
-## Customization
+Primary tokens include:
 
-### Changing the Color Scheme
-The color scheme is controlled by CSS variables located at the top of the `<style>` block in `index.html`. 
-
-To change colors, modify the variables in the `:root` pseudo-class:
 ```css
-:root {
-    --color-bg: #111a24;
-    --color-text: #ffffff;
-    --color-accent: #f2705a;
-    /* ... */
-}
+--canvas: #080e16;
+--surface: rgba(18, 29, 42, 0.64);
+--ink: #f6f8fb;
+--muted: #a4afbc;
+--accent: #ff7a66;
+--accent-cool: #82bce5;
+--page-width: 1180px;
 ```
 
----
+Backdrop filters are limited to navigation and key glass panels. Project and skill cards use opaque translucent surfaces to reduce GPU cost.
+
+## Motion System
+
+Motion for React controls reveals, filtering, spring navigation indicators, magnetic links, counters, hero parallax, and project-card tilt. Motion is restricted to transform and opacity where possible.
+
+Every motion component uses `useReducedMotion`, and global CSS handles the `prefers-reduced-motion` media query.
+
+GSAP is not required for the current interaction model.
+
+## Accessibility
+
+- Semantic landmarks and heading hierarchy
+- Skip link and visible focus indicators
+- Mobile drawer focus trap, Escape handling, and focus restoration
+- `aria-current` for active navigation
+- `aria-pressed` for project filters
+- Minimum 44px interactive filter targets
+- Reduced-motion behavior
+- Descriptive portrait alt text
+- Safe external link relationships
+- Automated axe checks in `tests/portfolio.spec.ts`
+
+## Assets
+
+- `public/Akash.webp`: optimized hero portrait rendered through `next/image`
+- `public/Akash.jpg`: social metadata fallback image
+- `public/CV.pdf`: stable downloadable CV path
+- `public/certificates/STQA_CERTIFICATE.jpeg`: full-size STQA training certificate and responsive preview
+- `app/icon.svg`: generated application icon
+
+Next.js generates responsive image markup. Static export uses unoptimized image URLs because GitHub Pages does not provide the Next.js image optimization service.
+
+## SEO
+
+- Canonical Vercel URL
+- Open Graph and Twitter metadata
+- Person JSON-LD
+- `robots.txt`
+- `sitemap.xml`
+- Web application manifest
+- Static server-rendered projects and skills
 
 ## Deployment
 
-This project is perfectly suited for static hosting platforms like GitHub Pages, Netlify, or Vercel.
+### Vercel
 
-### GitHub Pages Deployment
-1. Initialize a Git repository if you haven't already:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit"
-   ```
-2. Push your code to a GitHub repository.
-3. In your GitHub repository settings, navigate to **Pages**.
-4. Select the `main` branch as the source and click **Save**.
-5. Your portfolio will be live at `https://<your-username>.github.io/<repository-name>/`.
-*(Note: Since you have a `CNAME` file, GitHub Pages will automatically attempt to route the domain specified in that file to your site).*
+Vercel uses the root project and deploys the static export without a base path.
 
----
-*Documentation last updated: November 2026*
+### GitHub Pages
+
+`.github/workflows/deploy-pages.yml` runs typecheck, lint, and build before deploying `out/`. During GitHub Actions builds, `next.config.ts` applies `/MyPortfolio` as `basePath` and `assetPrefix`. `NEXT_PUBLIC_BASE_PATH` keeps public assets and CV links correct.
+
+GitHub repository Pages settings must use **GitHub Actions** as the deployment source.
+
+## Maintenance Commands
+
+```bash
+npm run typecheck
+npm run lint
+npm run build
+npm run test:e2e
+npm run test:export
+```
+
+`test:e2e` runs against the development server. `test:export` serves the generated `out/` directory and verifies the exact production artifacts, including GitHub Pages base paths. Run these checks before every deployment. Production dependencies should remain audit-clean, and new animation libraries should only be added when Motion cannot support a required interaction.

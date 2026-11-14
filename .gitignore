@@ -1,0 +1,23 @@
+# dependencies
+/node_modules/
+
+# Next.js
+/.next/
+/out/
+
+# deployment
+/.vercel/
+
+# testing
+/playwright-report/
+/test-results/
+
+# environment
+.env*
+!.env.example
+
+# local metadata
+.directory
+
+# TypeScript
+*.tsbuildinfo

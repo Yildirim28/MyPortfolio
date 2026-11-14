@@ -1,81 +1,89 @@
-# MD. Shamim Osman Chowdhury - Portfolio
+# MD. Shamim Osman Chowdhury — Portfolio
 
-A responsive Computer Science and software engineering portfolio highlighting my development work across web, full-stack systems, data and AI interests, with a strong focus on Software Quality Assurance engineering.
+A premium, dark-first software engineering portfolio built with Next.js App Router, React, TypeScript, Tailwind CSS, Motion for React, and Lucide React. The portfolio presents development work across web, full-stack systems, applied AI, and Software Quality Assurance engineering.
 
 ## Live Portfolio
 
-- **Primary deployment:** [https://osman28.vercel.app](https://osman28.vercel.app)
+- **Primary:** [https://osman28.vercel.app](https://osman28.vercel.app)
 - **GitHub Pages:** [https://Yildirim28.github.io/MyPortfolio/](https://Yildirim28.github.io/MyPortfolio/)
 
-## Portfolio Highlights
+## Highlights
 
-- General CSE and software engineering profile with a highlighted SQA specialization
-- Experience, education, certification, leadership, technical skills, and downloadable CV
-- Ten projects covering SQA automation, API testing, web applications, PWAs, full-stack platforms, and applied AI/ML
-- Dynamic project and skill rendering from `data.json`
-- Generated project filters for SQA, Web, Fullstack, and AI/ML categories
-- Animated statistics, scroll reveals, and active navigation using `IntersectionObserver`
-- Dark responsive layout for desktop, tablet, and mobile devices
-- Accessible mobile navigation, visible focus states, semantic markup, and reduced-motion support
-- Static HTML fallback when JavaScript or dynamic data loading is unavailable
-- Contact links for GitHub, LinkedIn, email, WhatsApp, Facebook, and phone
+- Server-rendered content with isolated client-side interaction boundaries
+- Typed build-time project and skill data from `data.json`
+- Advanced glassmorphism, ambient lighting, and responsive dark design
+- Motion-powered reveals, counters, filtering, parallax, magnetic CTAs, and card tilt
+- Accessible mobile navigation with focus trapping and reduced-motion support
+- Ten projects with generated SQA, Web, Fullstack, and AI/ML filters
+- SEO metadata, canonical URL, JSON-LD, robots, sitemap, manifest, and favicon
+- Static export for both Vercel and GitHub Pages
+- Playwright browser tests and axe accessibility checks
 
-## Technology Stack
+## Stack
 
-- **HTML5:** Semantic page structure and static content fallbacks
-- **CSS3:** Custom properties, Grid, Flexbox, responsive breakpoints, and animations
-- **Vanilla JavaScript:** Fetch API, safe DOM rendering, project filtering, counters, active navigation, and mobile menu behavior
-- **JSON:** Maintainable project and skill-group content
-- **Google Fonts and inline SVG:** Typography and scalable icons
-- **Deployment:** Vercel and GitHub Pages
+- Next.js App Router
+- React and TypeScript
+- Tailwind CSS
+- Motion for React
+- Lucide React
+- Playwright and axe-core
+
+GSAP and React Three Fiber are intentionally not installed because the current interactions are handled efficiently by Motion and CSS.
 
 ## Project Structure
 
 ```text
-.
-├── index.html         # Page structure, embedded styles, and behavior
-├── data.json          # Dynamic projects and grouped technical skills
-├── Akash.jpg          # Portfolio portrait
-├── CV.pdf             # Downloadable CV
-├── README.md          # Project overview and setup instructions
-└── DOCUMENTATION.md   # Detailed maintenance documentation
+app/                  App Router pages, metadata routes, and global styles
+components/           Layout, sections, projects, motion, and UI primitives
+data/site.ts          Identity, navigation, About, experience, and contact content
+data.json             Projects and grouped technical skills
+lib/                  Data validation and shared utilities
+public/               Optimized-path portrait and downloadable CV
+tests/                Browser, interaction, and accessibility tests
+types/                Portfolio TypeScript interfaces
+.github/workflows/    GitHub Pages static-export deployment
 ```
 
-## Run Locally
+## Local Development
 
-The Fetch API requires the portfolio to run through a local web server rather than directly from `file://`.
+Requires Node.js 22 or newer.
 
 ```bash
-python3 -m http.server 8000
+npm install
+npm run dev
 ```
 
-Open [http://localhost:8000](http://localhost:8000) in a browser.
+Open [http://localhost:3000](http://localhost:3000).
 
-## Update Portfolio Content
+## Quality Checks
 
-### Projects and Skills
+```bash
+npm run typecheck
+npm run lint
+npm run build
+npm run test:e2e
+npm run test:export
+```
 
-Edit `data.json` to add or update project cards, categories, links, tags, and skill groups. Project filter buttons are generated automatically from the project categories.
+Install the Playwright browser once before running browser tests locally:
 
-### Personal Information
+```bash
+npx playwright install chromium
+```
 
-Edit the semantic sections in `index.html` to update the hero, About content, experience, education, contact information, and social links.
+## Updating Content
 
-### CV
+- Edit `data.json` to update projects, categories, links, tags, and skill groups.
+- Edit `data/site.ts` to update identity, biography, experience, education, statistics, and contacts.
+- Replace `public/CV.pdf` while keeping the filename to update the downloadable CV.
+- Replace `public/Akash.jpg` and regenerate `public/Akash.webp` to update the portrait.
+- Replace `public/certificates/STQA_CERTIFICATE.jpeg` to update the certification preview.
 
-Replace `CV.pdf` while keeping the same filename. The download button will use the new file without requiring an HTML change.
+Project data is validated during the build. Invalid project shapes or duplicate IDs fail the build instead of silently breaking the interface.
 
-### Portrait
+## Deployment
 
-Replace `Akash.jpg` while keeping the same filename, or update the image path in `index.html`.
-
-## Accessibility and Progressive Enhancement
-
-- Keyboard-accessible mobile navigation and interactive controls
-- WCAG-compliant text contrast and visible focus indicators
-- Reduced-motion support through `prefers-reduced-motion`
-- Safe external URL validation before dynamic links are rendered
-- Static project and skill content remains available if `data.json` cannot load
+Vercel builds the static Next.js export from `main`. GitHub Pages uses `.github/workflows/deploy-pages.yml`, which applies the `/MyPortfolio` base path and deploys the generated `out/` directory.
 
 ## Contact
 
