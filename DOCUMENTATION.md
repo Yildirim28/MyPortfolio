@@ -1,56 +1,110 @@
-# Portfolio Architecture and Maintenance
+# Portfolio Architecture and Maintenance Guide
 
-## Architecture
+## 1. System Overview
 
-The portfolio uses Next.js App Router with a server-first component model. Identity, About, experience, initial project data, skills, contact information, metadata, and structured data render at build time. Client components are limited to interactions that require browser state.
+The portfolio is a statically exported Next.js App Router application. It uses a server-first architecture for content and SEO, with isolated React client boundaries for motion and interaction.
+
+The production site is deployed to:
+
+```text
+https://Yildirim28.github.io/MyPortfolio/
+```
+
+GitHub Pages serves the generated `out/` directory under `/MyPortfolio`.
+
+## 2. Application Layers
+
+### App Router
+
+| File | Responsibility |
+| --- | --- |
+| `app/layout.tsx` | Fonts, metadata, viewport, ambient and interaction layers |
+| `app/page.tsx` | Page composition and Person JSON-LD |
+| `app/globals.css` | Tailwind import, tokens, glass surfaces, animation, responsive rules |
+| `app/robots.ts` | Search crawler policy |
+| `app/sitemap.ts` | Static sitemap |
+| `app/manifest.ts` | Web application manifest |
+| `app/icon.svg` | Application icon |
 
 ### Server Components
 
-- `app/page.tsx`
-- Hero, technology strip, About, experience, projects shell, technical skills, contact, and footer
-- Typed project and skill data loading
-- Metadata and JSON-LD
+- `Hero.tsx`
+- `TechnologyStrip.tsx`
+- `About.tsx`
+- `Experience.tsx`
+- `Projects.tsx`
+- `TechnicalSkills.tsx`
+- `Contact.tsx`
+- `Footer.tsx`
+- `GlassPanel.tsx`
+- `SectionHeading.tsx`
+
+These components render meaningful HTML before hydration.
 
 ### Client Components
 
-- `Header.tsx`: active navigation and accessible mobile drawer
-- `Reveal.tsx`: viewport-triggered section entrances
-- `AnimatedCounter.tsx`: statistics animation
-- `MagneticLink.tsx`: restrained pointer response for primary CTAs
-- `HeroVisual.tsx`: subtle desktop parallax and floating glass labels
-- `ProjectExplorer.tsx`: filters and animated layout changes
-- `ProjectCard.tsx`: pointer-aware tilt and interactive lighting
+| Component | Browser responsibility |
+| --- | --- |
+| `Header.tsx` | Active navigation, mobile drawer, focus trap, resize cleanup |
+| `InteractionLayer.tsx` | Scroll progress and desktop pointer spotlight |
+| `Reveal.tsx` | Hydration-safe viewport reveals |
+| `AnimatedCounter.tsx` | Viewport-triggered statistics |
+| `MagneticLink.tsx` | Pointer-responsive primary links |
+| `HeroVisual.tsx` | Portrait parallax and floating status panels |
+| `ExpertiseTicker.tsx` | Rotating expertise presentation |
+| `ProjectExplorer.tsx` | Category filters and selected project state |
+| `ProjectCard.tsx` | Keyboard opening, tilt, glow, and shared-layout origin |
+| `ProjectModal.tsx` | Expand animation, dialog focus trap, Escape and overlay close |
 
-No route or section becomes a Client Component solely for styling.
+`useHydrated.ts` prevents server/client animation-preference mismatches.
 
-## Content Sources
+## 3. Data Model
 
 ### `data.json`
-
-Preserves the original root structure:
 
 ```ts
 interface PortfolioData {
   skillGroups: SkillGroup[];
   projects: Project[];
 }
+
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  category: string;
+  tags: string[];
+  url?: string;
+  linkLabel?: string;
+  private?: boolean;
+}
 ```
 
-`lib/portfolio.ts` validates project shapes, optional URLs, skill arrays, and unique project IDs during the build.
+`lib/portfolio.ts` validates every project, skill group, optional link, and unique project ID during the build.
 
 ### `data/site.ts`
 
-Contains identity, navigation, technology strip, services, About copy, statistics, experience, education, certification, leadership, and contact information.
+Contains:
 
-## Design System
+- Identity and deployment URLs
+- Navigation
+- Technology marquee items
+- Services and About copy
+- Statistics
+- Training experience
+- Education, certification, and leadership credentials
+- Certificate image metadata
+- Contact and social links
 
-The design tokens live in `app/globals.css` and are exposed to Tailwind through `@theme inline`.
+## 4. Design System
 
-Primary tokens include:
+Tokens are defined in `app/globals.css` and exposed to Tailwind through `@theme inline`.
 
 ```css
 --canvas: #080e16;
+--canvas-deep: #050a10;
 --surface: rgba(18, 29, 42, 0.64);
+--surface-raised: rgba(28, 43, 59, 0.78);
 --ink: #f6f8fb;
 --muted: #a4afbc;
 --accent: #ff7a66;
@@ -58,69 +112,181 @@ Primary tokens include:
 --page-width: 1180px;
 ```
 
-Backdrop filters are limited to navigation and key glass panels. Project and skill cards use opaque translucent surfaces to reduce GPU cost.
+### Typography
 
-## Motion System
+- Manrope: body, navigation, and UI text
+- IBM Plex Sans: Hero display heading with a clear double-storey lowercase “g”
+- JetBrains Mono: labels, counters, categories, and metadata
 
-Motion for React controls reveals, filtering, spring navigation indicators, magnetic links, counters, hero parallax, and project-card tilt. Motion is restricted to transform and opacity where possible.
+### Glass Surfaces
 
-Every motion component uses `useReducedMotion`, and global CSS handles the `prefers-reduced-motion` media query.
+- `.glass-panel`: stronger frosted panel for major sections and dialogs
+- `.surface-card`: glossy card with layered highlights, blur, saturation, and depth
+- Mobile breakpoints reduce blur strength to protect rendering performance
+- Contact cards, filters, header, and CTAs use lighter localized blur
 
-GSAP is not required for the current interaction model.
+## 5. Motion and Interaction
 
-## Accessibility
+Motion for React is the primary animation library. GSAP is not installed.
 
-- Semantic landmarks and heading hierarchy
-- Skip link and visible focus indicators
-- Mobile drawer focus trap, Escape handling, and focus restoration
-- `aria-current` for active navigation
-- `aria-pressed` for project filters
-- Minimum 44px interactive filter targets
+Implemented systems:
+
+- Scroll progress indicator
+- Pointer-following ambient spotlight on fine-pointer devices
+- Slowly moving background lights
+- Hero title gradient sweep
+- Rotating expertise ticker
+- Continuous technology marquee
+- Viewport reveal transitions
+- Animated statistics
+- Magnetic CTA response
+- Portrait parallax and floating status panels
+- Spring navigation indicator
+- Project filtering and layout transitions
+- Pointer-aware card tilt and glow
+- Shared-layout project expansion dialogs
+- CTA specular light sweep
+
+Every preference-dependent Motion component waits for hydration before applying reduced-motion behavior. Global CSS also handles `prefers-reduced-motion`.
+
+## 6. Project Dialog Behavior
+
+Project cards are keyboard-operable `role="button"` elements.
+
+- Enter, Space, or click opens the detail dialog.
+- Focus moves to the close button.
+- Tab and Shift+Tab remain inside the dialog.
+- Escape closes the dialog.
+- Clicking the backdrop closes the dialog.
+- Focus returns to the originating card.
+- External project links remain inside the dialog.
+- Reduced-motion users receive immediate transitions without spring layout animation.
+
+## 7. Assets
+
+| Asset | Usage |
+| --- | --- |
+| `public/Akash.webp` | Optimized Hero portrait |
+| `public/Akash.jpg` | Social metadata fallback |
+| `public/CV.pdf` | Stable CV download path |
+| `public/certificates/STQA_CERTIFICATE.jpeg` | Certificate preview and full-size view |
+| `app/icon.svg` | Application icon |
+
+`images.unoptimized` remains enabled because GitHub Pages does not provide the Next.js image optimization service. Source images are optimized before commit.
+
+## 8. Accessibility
+
+- Server-visible content before hydration
+- Skip link and semantic page landmarks
+- Ordered heading hierarchy
+- Visible focus indicators
+- Focus-trapped mobile navigation
+- Focus-trapped project dialogs
+- Escape and focus restoration behavior
+- `aria-current` navigation state
+- `aria-pressed` project filters
+- Live project count updates
+- Keyboard-operable scroll and card regions
 - Reduced-motion behavior
-- Descriptive portrait alt text
-- Safe external link relationships
-- Automated axe checks in `tests/portfolio.spec.ts`
+- Descriptive image alternatives
+- Safe external-link relationships
+- Automated axe testing on desktop and mobile exports
 
-## Assets
+## 9. SEO
 
-- `public/Akash.webp`: optimized hero portrait rendered through `next/image`
-- `public/Akash.jpg`: social metadata fallback image
-- `public/CV.pdf`: stable downloadable CV path
-- `public/certificates/STQA_CERTIFICATE.jpeg`: full-size STQA training certificate and responsive preview
-- `app/icon.svg`: generated application icon
-
-Next.js generates responsive image markup. Static export uses unoptimized image URLs because GitHub Pages does not provide the Next.js image optimization service.
-
-## SEO
-
-- Canonical Vercel URL
+- Metadata API title and description
+- Canonical URL configuration in `data/site.ts`
 - Open Graph and Twitter metadata
 - Person JSON-LD
 - `robots.txt`
 - `sitemap.xml`
 - Web application manifest
-- Static server-rendered projects and skills
+- Static server-rendered project and skill content
 
-## Deployment
+The Vercel alias is currently inactive. GitHub Pages is the verified production deployment. Update `siteConfig.primaryUrl` when a permanent custom or Vercel domain is active.
 
-### Vercel
+## 10. Static Export and Base Paths
 
-Vercel uses the root project and deploys the static export without a base path.
+`next.config.ts` enables:
 
-### GitHub Pages
+```ts
+output: "export";
+trailingSlash: true;
+images: { unoptimized: true };
+```
 
-`.github/workflows/deploy-pages.yml` runs typecheck, lint, and build before deploying `out/`. During GitHub Actions builds, `next.config.ts` applies `/MyPortfolio` as `basePath` and `assetPrefix`. `NEXT_PUBLIC_BASE_PATH` keeps public assets and CV links correct.
+During GitHub Actions builds:
 
-GitHub repository Pages settings must use **GitHub Actions** as the deployment source.
+```text
+basePath=/MyPortfolio
+assetPrefix=/MyPortfolio
+NEXT_PUBLIC_BASE_PATH=/MyPortfolio
+```
 
-## Maintenance Commands
+Use `assetPath()` from `lib/utils.ts` for files under `public/` that appear in component props or links.
+
+## 11. Deployment Workflow
+
+`.github/workflows/deploy-pages.yml` performs:
+
+1. Repository checkout
+2. Node.js setup and npm cache restoration
+3. `npm ci`
+4. TypeScript validation
+5. ESLint validation
+6. Static export build
+7. Base-path and asset verification
+8. Playwright Chromium installation
+9. Exported-site interaction and axe tests
+10. Artifact upload
+11. GitHub Pages deployment
+
+The workflow token requires `pages: write` and `id-token: write` permissions.
+
+## 12. Testing
+
+### Development Server
+
+```bash
+npm run test:e2e
+```
+
+### Production Export
+
+```bash
+npm run build
+npm run verify:export
+npm run test:export
+```
+
+`scripts/serve-export.mjs` provides a dependency-free static server for exact production artifacts. `scripts/verify-export.mjs` checks required files, CV, portrait, certificate, manifest, chunks, and base-prefixed URLs.
+
+Current Playwright coverage includes:
+
+- Core content and project filters
+- Project dialog open and close behavior
+- Mobile menu keyboard control
+- Mobile-to-desktop scroll-lock cleanup
+- Reduced-motion project behavior
+- Desktop and mobile axe analysis
+
+## 13. Maintenance Checklist
+
+Before deployment:
 
 ```bash
 npm run typecheck
 npm run lint
 npm run build
-npm run test:e2e
+npm run verify:export
 npm run test:export
+npm audit --omit=dev
 ```
 
-`test:e2e` runs against the development server. `test:export` serves the generated `out/` directory and verifies the exact production artifacts, including GitHub Pages base paths. Run these checks before every deployment. Production dependencies should remain audit-clean, and new animation libraries should only be added when Motion cannot support a required interaction.
+Before adding a dependency:
+
+- Confirm an existing library or CSS cannot solve the requirement.
+- Measure client bundle and main-thread impact.
+- Verify reduced-motion behavior.
+- Keep Server Components as the default.
+- Update this documentation when architecture or deployment behavior changes.
